@@ -1,24 +1,39 @@
-const form = document.getElementById("form");
-const todoListContain = document.getElementById("todoListContain");
-let todo;
 let valid = true;
+let myData = localStorage;
+
+window.onload = () =>
+{
+    for (let index = 0; index < myData.length; index++)
+    {
+        todoListContain.innerHTML += `<li>${myData.key(index)}</li>`;
+    }
+
+    const list = document.querySelectorAll("li");
+    for (let index = 0; index < myData.length; index++)
+    {
+        if (myData.getItem(myData.key(index)) === "checked")
+        {
+            list[index].classList.add("checked");
+        }
+    }
+};
 
 form.addEventListener("submit", (e) =>
 {
     e.preventDefault();
     
-    const allh3 = document.querySelectorAll("h3");
+    const list = document.querySelectorAll("li");
 
-    allh3.forEach((h3) =>
+    list.forEach((li) =>
     {
-        if (todo_input.value === h3.textContent)
+        if (todo_input.value === li.textContent)
             valid = false;
     });
 
-    if (todo_input.value.length > 0 && valid)
+    if (todo_input.value.length > 1 && valid)
     {
-        todo = todo_input.value;
-        todoListContain.innerHTML += `<h3>${todo}</h3>`;
+        todoListContain.innerHTML += `<li>${todo_input.value}</li>`;
+        myData.setItem(todo_input.value, 'no-checked');
     }
     todo_input.value = "";
     valid = true;
@@ -28,9 +43,15 @@ todoListContain.addEventListener("click", (e) =>
 {
     if (e.target.id !== "todoListContain")
     {
-        e.target.remove();
+        if (e.target.classList.contains("checked"))
+        {
+            e.target.remove();
+            myData.removeItem(e.target.textContent);
+        }
+        else
+        {
+            e.target.classList.add("checked");
+            myData.setItem(e.target.textContent, 'checked');
+        }
     }
 });
-
-// <i class="fa-regular fa-square"></i>
-// <i class="fa-regular fa-square-check"></i>

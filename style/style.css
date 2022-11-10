@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -88,15 +89,54 @@ body {
   margin-bottom: 50px;
   border-radius: 20px;
 }
-.main-header .todo-container .contain h3 {
-  margin: 15px;
+.main-header .todo-container .contain li {
+  position: relative;
+  padding: 15px;
   word-break: break-all;
+  list-style-type: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   -webkit-transition: 0.2s ease;
   -o-transition: 0.2s ease;
   transition: 0.2s ease;
   cursor: pointer;
 }
-.main-header .todo-container .contain h3:hover {
+.main-header .todo-container .contain li::before {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+  content: "☐";
+  color: #ff86ab;
+}
+.main-header .todo-container .contain li::after {
+  position: relative;
+  display: inline-block;
+  content: "(Terminer)";
+  color: #51ff00;
+  font-weight: 600;
+  margin-left: 5px;
+  opacity: 0;
+  -webkit-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+.main-header .todo-container .contain li:hover {
   background-color: rgba(0, 122, 222, 0.4117647059);
   border-radius: 20px;
+}
+.main-header .todo-container .contain li:hover::after {
+  opacity: 1;
+}
+.main-header .todo-container .contain li.checked::before {
+  content: "☑";
+  color: #51ff00;
+}
+.main-header .todo-container .contain li.checked::after {
+  content: "(Supprimer)";
+  color: #ff86ab;
+}
+.main-header .todo-container .contain li.checked:hover::after {
+  opacity: 1;
 }/*# sourceMappingURL=style.css.map */
